@@ -3,13 +3,11 @@ import matplotlib.pyplot as plt
 
 
 def parse_images(values):
-    data = np.zeros((42000, 28, 28), dtype=np.uint8)
-
-    print(values.shape)
+    data = np.zeros((len(values), 28, 28, 1), dtype=np.uint8)
 
     for (i, row) in enumerate(values):
         for (j, col) in enumerate(row):
-            data[i, int(j / 28), j % 28] = col
+            data[i, int(j / 28), j % 28, 0] = col
 
     return data
 
