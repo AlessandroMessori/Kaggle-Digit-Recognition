@@ -1,6 +1,6 @@
 import numpy as np
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout
+from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, BatchNormalization
 from tensorflow.keras.utils import to_categorical
 
 
@@ -16,12 +16,16 @@ class DigitCNN:
         self.cnn.add(Conv2D(32, kernel_size=3, activation="relu"))
         self.cnn.add(Flatten())
         self.cnn.add(Dense(32, activation="relu"))
+        self.cnn.add(BatchNormalization())
+        self.cnn.add(Dropout(0.2))
+        self.cnn.add(Dense(64, activation="relu"))
+        self.cnn.add(BatchNormalization())
         self.cnn.add(Dropout(0.2))
         self.cnn.add(Dense(10, activation="softmax"))
 
     def train(self):
         self.cnn.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-        self.cnn.fit(self.x, self.y, epochs=10)
+        self.cnn.fit(self.x, self.y, epochs=7)
 
     def predict(self, to_pred):
         preds = self.cnn.predict(to_pred)
