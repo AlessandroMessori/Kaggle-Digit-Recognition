@@ -15,12 +15,12 @@ class DigitCNN:
         self.cnn.add(Conv2D(64, kernel_size=3, activation="relu", input_shape=(28, 28, 1)))
         self.cnn.add(Conv2D(32, kernel_size=3, activation="relu"))
         self.cnn.add(Flatten())
-        self.cnn.add(Dense(32, activation="relu"))
-        self.cnn.add(BatchNormalization())
-        self.cnn.add(Dropout(0.2))
         self.cnn.add(Dense(64, activation="relu"))
         self.cnn.add(BatchNormalization())
-        self.cnn.add(Dropout(0.2))
+        self.cnn.add(Dropout(0.3))
+        self.cnn.add(Dense(128, activation="relu"))
+        self.cnn.add(BatchNormalization())
+        self.cnn.add(Dropout(0.3))
         self.cnn.add(Dense(10, activation="softmax"))
 
     def train(self):
